@@ -35,11 +35,6 @@ class LessonsScreen extends StatelessWidget {
                 child: LessonNode(
                   isCompleted: isCompleted,
                   isLocked: isLocked,
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Ders ${index + 1} seçildi!')),
-                    );
-                  },
                 ),
               ),
             ),

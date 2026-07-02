@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
+import '../screens/quiz_screen.dart';
 
 class LessonNode extends StatelessWidget {
   final bool isCompleted;
   final bool isLocked;
-  final VoidCallback onTap;
 
   const LessonNode({
     super.key,
     this.isCompleted = false,
     this.isLocked = false,
-    required this.onTap,
   });
 
   Color _getDarkerColor(Color color) {
@@ -29,7 +28,12 @@ class LessonNode extends StatelessWidget {
     final IconData icon = isLocked ? Icons.lock : Icons.star_rounded;
 
     return GestureDetector(
-      onTap: isLocked ? null : onTap,
+      onTap: isLocked ? null : () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const QuizScreen()),
+        );
+      },
       child: SizedBox(
         width: 80,
         height: 88, // 80 + 8 for shadow
