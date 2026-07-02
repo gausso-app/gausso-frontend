@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import '../widgets/gausso_button.dart';
+import '../models/question_model.dart';
 
 class QuizScreen extends StatefulWidget {
   const QuizScreen({super.key});
@@ -11,13 +12,46 @@ class QuizScreen extends StatefulWidget {
 
 class _QuizScreenState extends State<QuizScreen> {
   int? _selectedOptionIndex;
-
-  final List<String> _options = [
-    'Apple',
-    'Banana',
-    'Orange',
-    'Grape',
+  
+  final List<Question> _questions = [
+    Question(
+      id: '1',
+      questionText: "Aşağıdakilerden hangisi 'Elma' demektir?",
+      options: ['Apple', 'Banana', 'Orange', 'Grape'],
+      correctAnswerIndex: 0,
+    ),
+    Question(
+      id: '2',
+      questionText: "Aşağıdakilerden hangisi 'Kedi' demektir?",
+      options: ['Dog', 'Cat', 'Bird', 'Fish'],
+      correctAnswerIndex: 1,
+    ),
+    Question(
+      id: '3',
+      questionText: "Aşağıdakilerden hangisi 'Araba' demektir?",
+      options: ['Bus', 'Bicycle', 'Car', 'Train'],
+      correctAnswerIndex: 2,
+    ),
   ];
+
+  final int _currentQuestionIndex = 0;
+
+  void _checkAnswer() {
+    if (_selectedOptionIndex == null) return;
+    
+    final currentQuestion = _questions[_currentQuestionIndex];
+    final isCorrect = _selectedOptionIndex == currentQuestion.correctAnswerIndex;
+    
+    if (isCorrect) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Doğru cevap!'), backgroundColor: AppColors.primaryGreen),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Yanlış cevap!'), backgroundColor: Colors.red),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +93,7 @@ class _QuizScreenState extends State<QuizScreen> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Aşağıdakilerden hangisi 'Elma' demektir?",
+                  _questions[_currentQuestionIndex].questionText,
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
@@ -76,7 +110,7 @@ class _QuizScreenState extends State<QuizScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
                 child: ListView.builder(
-                  itemCount: _options.length,
+                  itemCount: _questions[_currentQuestionIndex].options.length,
                   itemBuilder: (context, index) {
                     final bool isSelected = _selectedOptionIndex == index;
                     return GestureDetector(
@@ -97,7 +131,7 @@ class _QuizScreenState extends State<QuizScreen> {
                           ),
                         ),
                         child: Text(
-                          _options[index],
+                          _questions[_currentQuestionIndex].options[index],
                           style: TextStyle(
                             fontSize: 18.0,
                             color: isSelected ? AppColors.primaryBlue : AppColors.textDark,
@@ -121,7 +155,7 @@ class _QuizScreenState extends State<QuizScreen> {
             color: _selectedOptionIndex != null ? AppColors.primaryGreen : AppColors.greyBorder,
             onPressed: () {
               if (_selectedOptionIndex != null) {
-                // Future implementation for checking answers
+                _checkAnswer();
               }
             },
           ),
