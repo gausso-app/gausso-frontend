@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import '../theme/app_colors.dart';
 import '../widgets/lesson_node.dart';
+import '../widgets/gausso_top_bar.dart';
 
 class LessonsScreen extends StatelessWidget {
   const LessonsScreen({super.key});
@@ -10,10 +11,7 @@ class LessonsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backgroundWhite,
-      appBar: AppBar(
-        title: const Text('Bölüm 1: Temeller', style: TextStyle(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-      ),
+      appBar: const GaussoTopBar(),
       body: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: 32.0),
         itemCount: 15,
