@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'lessons_screen.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -11,7 +12,7 @@ class _MainLayoutState extends State<MainLayout> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    Center(child: Text('Dersler Ekranı')),
+    LessonsScreen(),
     Center(child: Text('Lig Ekranı')),
     Center(child: Text('Görevler Ekranı')),
     Center(child: Text('Profil Ekranı')),
